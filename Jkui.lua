@@ -35,6 +35,7 @@ function Jkui:Init()
 		-- "UnitOrPackageName",
 	}
     Apollo.RegisterAddon(self, bHasConfigureFunction, strConfigureButtonText, tDependencies)
+	Apollo.RegisterSlashCommand("jkui", "OnJKUI", self)
 end
  
 
@@ -45,8 +46,6 @@ function Jkui:OnLoad()
     -- load our form file
 	self.xmlDoc = XmlDoc.CreateFromFile("Jkui.xml")
 	self.xmlDoc:RegisterCallback("OnDocLoaded", self)
-	
-	Apollo.RegisterSlashCommand("jkui", "OnJKUI", self)
 end
 
 -----------------------------------------------------------------------------------------------
@@ -55,7 +54,7 @@ end
 function Jkui:OnDocLoaded()
 
 	if self.xmlDoc ~= nil and self.xmlDoc:IsLoaded() then
-	    self.wndMain = Apollo.LoadForm(self.xmlDoc, "JkuiForm", nil, self)
+	    self.wndMain = Apollo.LoadForm(self.xmlDoc, "CastingForm", nil, self)
 		if self.wndMain == nil then
 			Apollo.AddAddonErrorText(self, "Could not load the main window for some reason.")
 			return
@@ -68,8 +67,7 @@ function Jkui:OnDocLoaded()
 		
 		-- Register handlers for events, slash commands and timer, etc.
 		-- e.g. Apollo.RegisterEventHandler("KeyDown", "OnKeyDown", self)
-
-
+	
 		-- Do additional Addon initialization here
 	end
 end
@@ -79,6 +77,15 @@ end
 -----------------------------------------------------------------------------------------------
 -- Define general functions here
 
+function Jkui:OnJKUI(cmd, param)
+	print("Hello World")
+	self.wndMain:Show(true)
+end
+
+function Jkui:LeaveJKUI(cmd, param)
+	print("Bye World")
+	self.wndMain:Hide(true)
+end
 
 -----------------------------------------------------------------------------------------------
 -- JkuiForm Functions

@@ -45,6 +45,8 @@ function Jkui:OnLoad()
     -- load our form file
 	self.xmlDoc = XmlDoc.CreateFromFile("Jkui.xml")
 	self.xmlDoc:RegisterCallback("OnDocLoaded", self)
+	
+	Apollo.RegisterSlashCommand("jkui", "OnJKUI", self)
 end
 
 -----------------------------------------------------------------------------------------------
